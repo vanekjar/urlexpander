@@ -1,3 +1,4 @@
+// Package urlexpander provides a library to expand shortened urls from services like goo.gl, bitly.com, tinyurl.com
 package urlexpander
 
 import (

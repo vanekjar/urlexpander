@@ -15,22 +15,22 @@ import (
 
 // parse flags from cmd-line
 func parseArguments() (port int, userAgent string, cacheCapacity int, cacheExpiration time.Duration) {
-	flag.IntVar(&port,"port", 8080, "Bind webserver to given port.")
-	flag.StringVar(&userAgent,"user-agent",
+	flag.IntVar(&port, "port", 8080, "Bind webserver to given port.")
+	flag.StringVar(&userAgent, "user-agent",
 		"Mozilla/5.0 (compatible; UrlExpander/1.0)",
 		" User agent string used when translating shortened url.")
-	flag.IntVar(&cacheCapacity,"cache-capacity",
+	flag.IntVar(&cacheCapacity, "cache-capacity",
 		100000,
 		"Expanded urls are cached for repeated queries. Using this option cache capacity can be set.")
 
 	var cacheExpirationMinutes int
-	flag.IntVar(&cacheExpirationMinutes,"cache-expiration",
+	flag.IntVar(&cacheExpirationMinutes, "cache-expiration",
 		60,
 		"Set cache expiration time in minutes.")
 
 	help := flag.Bool("help", false, "Print usage.")
 	flag.Parse()
-	
+
 	cacheExpiration = time.Duration(cacheExpirationMinutes) * time.Minute
 
 	// print usage

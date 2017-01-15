@@ -41,7 +41,7 @@ func TestIsAllowedRobotsTxt(t *testing.T) {
 		},
 	}
 
-	for _,testCase := range testCases {
+	for _, testCase := range testCases {
 		allowed, err := fetcher.isAllowedRobotsTxt(testCase.url)
 		if err != nil {
 			t.Fatal(err)
@@ -55,7 +55,7 @@ func TestIsAllowedRobotsTxt(t *testing.T) {
 	fetcher.userAgent = "UrlExpander"
 
 	// now all request should be allowed
-	for _,testCase := range testCases {
+	for _, testCase := range testCases {
 		allowed, err := fetcher.isAllowedRobotsTxt(testCase.url)
 		if err != nil {
 			t.Fatal(err)

@@ -1,11 +1,11 @@
 package main
 
 import (
-	"testing"
-	"net/http"
-	"net/http/httptest"
 	"encoding/json"
 	"errors"
+	"net/http"
+	"net/http/httptest"
+	"testing"
 )
 
 type MockExpander struct {
@@ -27,7 +27,7 @@ func TestExpandHandler(t *testing.T) {
 			result: expandedUrl,
 		}}
 
-	req, err := http.NewRequest("GET", "/api/expand?url=" + shortenedUrl, nil)
+	req, err := http.NewRequest("GET", "/api/expand?url="+shortenedUrl, nil)
 	if err != nil {
 		t.Fatal(err)
 	}

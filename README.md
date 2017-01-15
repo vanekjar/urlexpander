@@ -1,18 +1,20 @@
 # UrlExpander
 
+[![GoDoc](https://godoc.org/github.com/vanekjar/urlexpander/lib?status.svg)](https://godoc.org/github.com/vanekjar/urlexpander/lib)
+
 http://urlexpander.tk
 
-Go package providing API for expanding urls from shortening services like _goo.gl, bitly.com, tinyurl.com_
+Go package providing API for expanding shortened urls from services like _goo.gl, bitly.com, tinyurl.com_
 
 ## Features
 
- * Translates shortened url as fast as possible by sending lightweight HEAD request to shortening service
+ * Translates shortened urls as fast as possible by sending lightweight HEAD request to shortening service
  * Uses local cache to handle repeated queries
  * Respects _robots.txt_ in case the shortening service must not be visited by crawlers
 
 ## Usage
 
-This project can be used either as a library from Go code or it can be used as a standalone service providing HTTP JSON API.
+This project can be used either as a library from Go code or it can be used as a standalone service providing HTTP API.
   
 ### Library
   
@@ -28,7 +30,7 @@ expanded, err := expander.ExpandUrl("https://goo.gl/HFoP0a")
 Install __UrlExpander__ locally
  
 ```
-go install github.com/vanekjar/urlexpander
+go get github.com/vanekjar/urlexpander
 ```
 
 Run command that will start a local HTTP server (listening on port 8080 by default)
