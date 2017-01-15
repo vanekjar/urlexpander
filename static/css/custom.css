@@ -1,0 +1,47 @@
+body{
+    background-color: #2C3E50;
+}
+
+#expand-form {
+    margin-top: 40px;
+}
+
+#result {
+    margin-top: 10px;
+}
+
+#result-success {
+    font-size: 2em;
+    font-weight: bold;
+    color: #000;
+}
+
+#result-success .result-url {
+    font-size: 1em;
+}
+
+#result-success a.result-url,
+#result-success a.result-url:active,
+#result-success a.result-url:focus,
+#result-success a.result-url:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+#result-error {
+    font-size: 1.5em;
+    border-radius: 5px;
+}
+
+#api p{
+    font-size: 16px;
+}
+
+#api {
+    background-color: #FFF;
+    font-size: 16px;
+}
+
+#api h2 {
+    margin-bottom: 20px;
+}

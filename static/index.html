@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="URL Expander allows you to retrieve original URL from a shortened form provided by various shortening services.">
+    <meta name="keywords" content="shortener, shortening service, expander, expand, unshorten, url">
+    <meta name="author" content="Jaromir Vanek">
+
+    <title>UrlExpander</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="css/freelancer.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top" class="index">
+
+    <!-- Navigation -->
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="#page-top">Url Expander</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#api">Public API</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="https://github.com/vanekjar/urlexpander">Source code</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="intro-text">
+                        <span class="name">URL Expander</span>
+                        <span class="skills">Expand URLs from various shortening services</span>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 col-lg-offset-2" id="expand-form">
+                    <div id="form" class="input-group">
+                        <input id="url" type="text" class="form-control input-lg" placeholder="Shortened URL..." autofocus>
+                        <span class="input-group-btn">
+                            <button id="submit-btn" class="btn-lg btn-primary" type="button" data-loading-text="Expanding...">Expand</button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 col-lg-offset-2" id="result">
+                    <div id="result-success" class="collapse">
+                        Expanded URL is<br /><a href="" class="result-url"></a>
+                    </div>
+                    <div class="alert alert-danger collapse" id="result-error">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <strong>Error!</strong> <span class="error-desc"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="api">
+        <div class="container">
+            <div class="col-lg-9 col-lg-offset-1">
+                <h2>PUBLIC API</h2>
+                <p>
+                    URL EXPANDER offers an easy to use REST API to unshorten URLs from different shortening services.
+                    This API was tested with a lot of different services like <i>goo.gl, bitly.com, tinyurl.com</i>, but
+                    it should work as well with the others.
+                </p>
+
+                <h3>API request</h3>
+                <code>GET http://urlexpander.tk/api/expand?url=[short-url]</code>
+                <p>Replace <code>[short-url]</code> with shortened url.</p>
+
+                <h3>Success response</h3>
+                <code>
+                    200 OK<br />
+
+                    {"original":"", "expanded":""}
+                </code>
+                <br /><br />
+                <p>
+                    Result is a JSON message containing the following fields:<br />
+                    <b>original:</b> Original (shortened) URL<br />
+                    <b>expanded:</b> Expanded URL
+                </p>
+
+                <h3>Error response</h3>
+                <code>
+                    400 Bad Request || 500 Internal Server Error<br />
+                    {"error":""}
+                </code>
+                <p>
+                    Result is a JSON message containing error details.<br />
+                </p>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="footer-above">
+            <div class="container">
+                <div class="row">
+                    <!--
+                    <div class="footer-col col-md-4">
+                        <h3>Around the Web</h3>
+                        <ul class="list-inline">
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    -->
+                    <div class="footer-col col-md-5 col-md-offset-2">
+                        <h3>About Url Expander</h3>
+                        <p>Url Expander is a free to use service for expanding shortened urls from various services. Source code is available on <a href="https://github.com/vanekjar/urlexpander">GitHub</a> under free licence.</p>
+                    </div>
+
+                    <div class="footer-col col-md-5">
+                        <h3>Author</h3>
+                        <p><a href="https://github.com/vanekjar">Jaromir Vanek</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
+        <a class="btn btn-primary" href="#page-top">
+            <i class="fa fa-chevron-up"></i>
+        </a>
+    </div>
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Expand API -->
+    <script src="js/expand.js"></script>
+
+</body>
+
+</html>
