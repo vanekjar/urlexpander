@@ -56,7 +56,7 @@ func NewFromConfig(config Config) UrlExpander {
 		cache:   gcache.New(config.CacheCapacity).LRU().Expiration(config.CacheExpiration).Build()}
 }
 
-func (exp expander) ExpandUrl(shortenedUrl string) (string, error) {
+func (exp *expander) ExpandUrl(shortenedUrl string) (string, error) {
 	// Check if the given string is not exceeding configured length limit.
 	if len(shortenedUrl) > exp.Config.ShortUrlMaxLength {
 		return "", ErrLongUrl
