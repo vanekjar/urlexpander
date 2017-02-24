@@ -90,7 +90,7 @@ func (app *App) expand(w http.ResponseWriter, r *http.Request) {
 
 	expanded, err := app.Expander.ExpandUrl(shortened)
 	if err != nil {
-		log.Printf("ERROR: (%s) %s", r.RemoteAddr, err.Error())
+		log.Printf("ERROR: (%s) %s [url: %s]", r.RemoteAddr, err.Error(), shortened)
 		switch err {
 		case urlexpander.ErrDisallowedByRobotsTxt, urlexpander.ErrInvalidUrl, urlexpander.ErrLongUrl:
 			resp, _ := json.Marshal(responseMessage{Error: err.Error()})
