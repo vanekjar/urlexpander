@@ -57,7 +57,8 @@ func NewFromConfig(config Config) UrlExpander {
 }
 
 func (exp expander) ExpandUrl(shortenedUrl string) (string, error) {
-	if !exp.isShortened(shortenedUrl) {
+	// Check if the given string is not exceeding configured length limit.
+	if len(shortenedUrl) > exp.Config.ShortUrlMaxLength {
 		return "", ErrLongUrl
 	}
 
@@ -67,24 +68,20 @@ func (exp expander) ExpandUrl(shortenedUrl string) (string, error) {
 	}
 
 	// check if given url is present in cache
-	r, err := exp.cache.GetIFPresent(u.String())
+	uString := u.String()
+	r, err := exp.cache.GetIFPresent(uString)
 	if err == nil {
 		// item is present in cache
 		return r.(string), nil
 	}
 
-	expanded, err := exp.fetcher.fetchLocationHeader(u.String())
+	expanded, err := exp.fetcher.fetchLocationHeader(uString)
 	if err != nil {
 		return "", err
 	}
 
 	// set expanded url to cache
-	exp.cache.Set(u.String(), expanded)
+	exp.cache.Set(uString, expanded)
 
 	return expanded, nil
-}
-
-// Check if the given string is not exceeding configured length limit.
-func (exp expander) isShortened(u string) bool {
-	return len(u) <= exp.Config.ShortUrlMaxLength
 }
