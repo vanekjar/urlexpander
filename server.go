@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/vanekjar/urlexpander/lib"
+	urlexpander "./lib"
 	"log"
 	"net/http"
 	"os"
