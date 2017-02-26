@@ -1,10 +1,10 @@
 package main
 
 import (
+	urlexpander "github.com/vanekjar/urlexpander/lib"
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/vanekjar/urlexpander/lib"
 	"log"
 	"net/http"
 	"os"
@@ -14,7 +14,8 @@ import (
 )
 
 // parse flags from cmd-line
-func parseArguments() (port int, userAgent string, cacheCapacity int, cacheExpiration time.Duration) {
+func parseArguments() (port int, userAgent string, cacheCapacity int, cacheExpiration time.Duration, apiOnly bool) {
+	flag.BoolVar(&apiOnly, "api-only", false, "Expose only the API end points")
 	flag.IntVar(&port, "port", 8080, "Bind webserver to given port.")
 	flag.StringVar(&userAgent, "user-agent",
 		"Mozilla/5.0 (compatible; UrlExpander/1.0)",
@@ -48,7 +49,7 @@ type App struct {
 }
 
 func main() {
-	port, userAgent, cacheCapacity, cacheExpiration := parseArguments()
+	port, userAgent, cacheCapacity, cacheExpiration, apiOnly := parseArguments()
 
 	conf := urlexpander.Config{
 		CacheCapacity:     cacheCapacity,
@@ -62,7 +63,9 @@ func main() {
 	app := App{Expander: urlexpander.NewFromConfig(conf)}
 
 	log.Printf("INFO: Listening on port %d", port)
-	http.Handle("/", http.FileServer(http.Dir("./static")))
+	if !apiOnly {
+		http.Handle("/", http.FileServer(http.Dir("./static")))
+	}
 	http.HandleFunc("/api/expand", app.expand)
 	err := http.ListenAndServe(":"+strconv.Itoa(port), nil)
 	if err != nil {
@@ -87,7 +90,7 @@ func (app *App) expand(w http.ResponseWriter, r *http.Request) {
 
 	expanded, err := app.Expander.ExpandUrl(shortened)
 	if err != nil {
-		log.Printf("ERROR: (%s) %s", r.RemoteAddr, err.Error())
+		log.Printf("ERROR: (%s) %s [url: %s]", r.RemoteAddr, err.Error(), shortened)
 		switch err {
 		case urlexpander.ErrDisallowedByRobotsTxt, urlexpander.ErrInvalidUrl, urlexpander.ErrLongUrl:
 			resp, _ := json.Marshal(responseMessage{Error: err.Error()})

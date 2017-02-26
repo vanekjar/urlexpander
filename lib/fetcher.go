@@ -108,18 +108,19 @@ func (f *fetcher) isAllowedRobotsTxt(link string) (bool, error) {
 // Fetch and parse content of given robots.txt file
 func (f *fetcher) fetchRobotsTxt(u *url.URL) (*robotstxt.RobotsData, error) {
 	// check if given url is present in cache
-	r, err := f.robotsTxtCache.GetIFPresent(u.String())
+	uString := u.String()
+	r, err := f.robotsTxtCache.GetIFPresent(uString)
 	if err == nil {
 		// item is present in cache
 		return r.(*robotstxt.RobotsData), nil
 	}
 
-	resp, err := f.httpClient.Get(u.String())
+	resp, err := f.httpClient.Get(uString)
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	log.Printf("INFO: Requested %s, statusCode=%d", u.String(), resp.StatusCode)
+	log.Printf("INFO: Requested %s, statusCode=%d", uString, resp.StatusCode)
 
 	robots, err := robotstxt.FromResponse(resp)
 	if err != nil {
@@ -127,7 +128,7 @@ func (f *fetcher) fetchRobotsTxt(u *url.URL) (*robotstxt.RobotsData, error) {
 	}
 
 	// set parsed robots.txt to cache
-	f.robotsTxtCache.Set(u.String(), robots)
+	f.robotsTxtCache.Set(uString, robots)
 
 	return robots, nil
 }
