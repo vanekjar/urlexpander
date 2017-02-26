@@ -1,7 +1,7 @@
 package main
 
 import (
-	urlexpander "./lib"
+	urlexpander "github.com/vanekjar/urlexpander/lib"
 	"encoding/json"
 	"flag"
 	"fmt"
