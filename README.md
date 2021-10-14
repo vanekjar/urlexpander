@@ -2,8 +2,6 @@
 
 [![GoDoc](https://godoc.org/github.com/vanekjar/urlexpander/lib?status.svg)](https://godoc.org/github.com/vanekjar/urlexpander/lib)
 
-http://urlexpander.tk
-
 Go package providing API for expanding shortened urls from services like _goo.gl, bitly.com, tinyurl.com_
 
 ## Features
